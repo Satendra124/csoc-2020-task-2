@@ -104,3 +104,24 @@ def returnBookView(request):
     return JsonResponse(response_data)
 
 
+def rateBook(request):
+    bid = request.POST.get('bid')
+    rating = request.POST.get('rating')
+    ratingbook=Book.objects.get(id=bid)
+    try:
+        rate=Rate.objects.get(rater=request.user)
+        rate.rating=rating
+        rate.save(update_fields=['rating'])
+    except Rate.DoesNotExist:
+        ratingobj = Rate(book=ratingbook,rater=request.user,rating=rating)
+        ratingobj.save()
+    ratings_of_book = Rate.objects.filter(book=ratingbook)
+    final_rating=0
+    for rate_of_book in ratings_of_book:
+        final_rating+=rate_of_book.rating/ratings_of_book.count()
+    ratingbook.rating=final_rating
+    ratingbook.save(update_fields=['rating'])    
+    context={
+        "message":'success'
+    }
+    return JsonResponse(context) 
