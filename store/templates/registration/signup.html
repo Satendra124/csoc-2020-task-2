@@ -9,35 +9,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+    
     <div class="form-group flex-column justify-content-around align-content-center d-flex" style="width: 100vw; height:100vh">
         <div style="width: 50%; align-self:center">
-        <form method="POST">
+        <form method="POST" action='{% url "register" %}'>
             {% csrf_token %}
             <input type="text" class="form-control p-2" name="first_name" placeholder="First Name" id="firstname" required><br>
             <input type="text" class="form-control p-2" name="last_name" placeholder="Last Name" id="lastname" required><br>
             <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username" required><br>
-            <input type="password" class="form-control p-2" name="Password" placeholder="Password confirm" id="passwordc" required><br>
+            <input type="password" class="form-control p-2" name="passwordc" placeholder="Password confirm" id="passwordc" required><br>
             <input type="password" class="form-control p-2" name="password" placeholder="Password" id="password" required><br>
-            <button type="button" class="btn btn-primary p-2" id="Signup">Signup</button>
+            <button type="submit" class="btn btn-primary p-2" id="Signup">Signup</button>
         </form>
+                {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %} 
+            </ul>
+            {% endif %}
+    </div> 
     </div>
-    </div>
-    <script>
-        $("#Signup").click(function(){
-            if($("#password").val()==$("#passwordc").val()){
-                $.ajax({
-                    url:'{% url "register" %}',
-                    method:'POST',
-                    data:{
-                        first_name:$("#firstname").val(),
-                        last_name:$("#lastname").val(),
-                        Username:$("#Username").val(),
-                        password:$("#password").val(),
-                        CsrfViewMiddleware: '{{ csrf_token }}'
-                    }
-                })
-            }else alert("Password and Confirm Password did not match")
-        })
-    </script>
 </body>
 </html>
