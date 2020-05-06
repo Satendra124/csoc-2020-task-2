@@ -45,6 +45,6 @@ def registerView(request):
             return render(request,'store/index.html') 
         else:
             messages.error(request, 'Password and confirm password did not matched')
-            return render(request,'registration/signup.html ')
+            return render(request,'registration/signup.html')
     else:
         return render(request,'registration/signup.html')
