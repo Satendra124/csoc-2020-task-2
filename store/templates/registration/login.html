@@ -1,5 +1,49 @@
-<form method="POST">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Login</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="form-group flex-column justify-content-around align-content-center d-flex" style="width: 100vw; height:100vh">
+        <div style="width: 50%; align-self:center">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username"><br>
+            <input type="password" class="form-control p-2" name="password" placeholder="Password" id="password"><br>
+            <button type="button" class="btn btn-primary p-2" id="login">Login</button>
+        </form>
+    </div>
+    </div>
+    <script>
+        $("#login").click(function(){
+            $.ajax({
+                url:'{% url "loginhere" %}',
+                method:'POST',
+                data:{
+                    Username:$("#Username").val(),
+                    password:$("#password").val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success:function(data,status,xhr){
+                    if(data['message'] == "success"){
+                        window.location.href = '/'
+                    }
+                    else{
+                        alert("Unable to Sign in");
+                    }
+                },
+                error: function(xhr, status, err){
+                    alert("Some error occured");
+                }
+            })
+        })
+        
+    </script>
+</body>
+</html>

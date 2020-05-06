@@ -1,6 +1,48 @@
-
-<form method="POST">
-    {% csrf_token %}
-    {{form}}
-<button type="submit">Sign Up</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="form-group flex-column justify-content-around align-content-center d-flex" style="width: 100vw; height:100vh">
+        <div style="width: 50%; align-self:center">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" class="form-control p-2" name="first_name" placeholder="First Name" id="firstname"><br>
+            <input type="text" class="form-control p-2" name="last_name" placeholder="Last Name" id="lastname"><br>
+            <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username"><br>
+            <input type="password" class="form-control p-2" name="Password" placeholder="Password confirm" id="passwordc"><br>
+            <input type="password" class="form-control p-2" name="password" placeholder="Password" id="password"><br>
+            <button type="button" class="btn btn-primary p-2" id="Signup">Signup</button>
+        </form>
+    </div>
+    </div>
+    <script>
+        $("#Signup").click(function(){
+            if($("#password").val()==$("#passwordc").val()){
+                if($("#username").val()!="" || $("#password").val()!="" || $("#firstname").val()!="" || $("#lastname").val()!=""){
+                    $.ajax({
+                        url:'{% url "register" %}',
+                        method:'POST',
+                        data:{
+                            first_name:$("#firstname").val(),
+                            last_name:$("#lastname").val(),
+                            Username:$("#Username").val(),
+                            password:$("#password").val(),
+                            CsrfViewMiddleware: '{{ csrf_token }}'
+                        }
+                    })
+                }else{
+                    alert("enter all fields")
+                }
+            }else alert("Password and Confirm Password did not match")
+        })
+        
+    </script>
+</body>
+</html>
