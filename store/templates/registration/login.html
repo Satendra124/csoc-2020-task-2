@@ -6,7 +6,6 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -14,8 +13,8 @@
         <div style="width: 50%; align-self:center">
         <form method="POST">
             {% csrf_token %}
-            <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username"><br>
-            <input type="password" class="form-control p-2" name="password" placeholder="Password" id="password"><br>
+            <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username" required><br>
+            <input type="password" class="form-control p-2" name="password" placeholder="Password" id="password" required><br>
             <button type="button" class="btn btn-primary p-2" id="login">Login</button>
         </form>
     </div>

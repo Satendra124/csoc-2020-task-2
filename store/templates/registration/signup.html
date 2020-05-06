@@ -13,11 +13,11 @@
         <div style="width: 50%; align-self:center">
         <form method="POST">
             {% csrf_token %}
-            <input type="text" class="form-control p-2" name="first_name" placeholder="First Name" id="firstname"><br>
-            <input type="text" class="form-control p-2" name="last_name" placeholder="Last Name" id="lastname"><br>
-            <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username"><br>
-            <input type="password" class="form-control p-2" name="Password" placeholder="Password confirm" id="passwordc"><br>
-            <input type="password" class="form-control p-2" name="password" placeholder="Password" id="password"><br>
+            <input type="text" class="form-control p-2" name="first_name" placeholder="First Name" id="firstname" required><br>
+            <input type="text" class="form-control p-2" name="last_name" placeholder="Last Name" id="lastname" required><br>
+            <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username" required><br>
+            <input type="password" class="form-control p-2" name="Password" placeholder="Password confirm" id="passwordc" required><br>
+            <input type="password" class="form-control p-2" name="password" placeholder="Password" id="password" required><br>
             <button type="button" class="btn btn-primary p-2" id="Signup">Signup</button>
         </form>
     </div>
@@ -25,24 +25,19 @@
     <script>
         $("#Signup").click(function(){
             if($("#password").val()==$("#passwordc").val()){
-                if($("#username").val()!="" || $("#password").val()!="" || $("#firstname").val()!="" || $("#lastname").val()!=""){
-                    $.ajax({
-                        url:'{% url "register" %}',
-                        method:'POST',
-                        data:{
-                            first_name:$("#firstname").val(),
-                            last_name:$("#lastname").val(),
-                            Username:$("#Username").val(),
-                            password:$("#password").val(),
-                            CsrfViewMiddleware: '{{ csrf_token }}'
-                        }
-                    })
-                }else{
-                    alert("enter all fields")
-                }
+                $.ajax({
+                    url:'{% url "register" %}',
+                    method:'POST',
+                    data:{
+                        first_name:$("#firstname").val(),
+                        last_name:$("#lastname").val(),
+                        Username:$("#Username").val(),
+                        password:$("#password").val(),
+                        CsrfViewMiddleware: '{{ csrf_token }}'
+                    }
+                })
             }else alert("Password and Confirm Password did not match")
         })
-        
     </script>
 </body>
 </html>
