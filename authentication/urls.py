@@ -5,5 +5,5 @@ from django.conf import settings
 from .views import registerView
 
 urlpatterns = [
-    path('register/',registerView),
+    path('register/',registerView,name='register'),
 ]
