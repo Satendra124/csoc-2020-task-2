@@ -11,6 +11,9 @@
 <body>
     <div class="form-group flex-column justify-content-around align-content-center d-flex" style="width: 100vw; height:100vh">
         <div style="width: 50%; align-self:center">
+            <div class="alert alert-danger alert-dismissible collapse" id='error'>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Ah!</strong> Username of password did not match</div>
         <form method="POST">
             {% csrf_token %}
             <input type="text" class="form-control p-2" name="Username" placeholder="Username" id="Username" required><br>
@@ -34,7 +37,7 @@
                         window.location.href = '/'
                     }
                     else{
-                        alert("Unable to Sign in");
+                        $("#error").show()
                     }
                 },
                 error: function(xhr, status, err){

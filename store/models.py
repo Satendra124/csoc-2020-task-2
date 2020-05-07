@@ -37,4 +37,4 @@ class Rate(models.Model):
     rater = models.ForeignKey(User, related_name='rater',null=True,on_delete=models.SET_NULL)
     rating = models.FloatField(validators=[MinValueValidator(1), MaxValueValidator(10)],default=10.0)
     def __str__(self):
-        return f'{self.rating} by {self.rater}'
+        return f'{self.rating} by {self.rater} for {self.book}'

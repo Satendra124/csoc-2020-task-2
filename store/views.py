@@ -11,10 +11,8 @@ def index(request):
 def bookDetailView(request, bid):
     template_name = 'store/book_detail.html'
     book = Book.objects.get(id=bid)
-    i=0
-    for b in BookCopy.objects.filter(book=book):
-        if b.status:
-            i+=1
+    availbooks= BookCopy.objects.filter(book=book,status=True)
+    i=availbooks.count()
     context = {
         'book': book,
         'num_available': i,
