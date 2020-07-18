@@ -31,4 +31,5 @@ jobs:
         pipenv install
     - name: Start Server
       run: |
-        python -v
+        pipenv shell
+        python manage.py runserver
